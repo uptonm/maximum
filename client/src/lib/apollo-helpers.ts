@@ -188,7 +188,7 @@ export type story_enum_visibility_state_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type story_storyKeySpecifier = ('author' | 'author_id' | 'blocks' | 'blocks_aggregate' | 'created_at' | 'id' | 'title' | 'updated_at' | 'visibility' | story_storyKeySpecifier)[];
+export type story_storyKeySpecifier = ('author' | 'author_id' | 'blocks' | 'blocks_aggregate' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | 'visibility' | story_storyKeySpecifier)[];
 export type story_storyFieldPolicy = {
 	author?: FieldPolicy<any> | FieldReadFunction<any>,
 	author_id?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -196,6 +196,7 @@ export type story_storyFieldPolicy = {
 	blocks_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	subtitle?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	visibility?: FieldPolicy<any> | FieldReadFunction<any>
@@ -211,20 +212,22 @@ export type story_story_aggregate_fieldsFieldPolicy = {
 	max?: FieldPolicy<any> | FieldReadFunction<any>,
 	min?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type story_story_max_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'title' | 'updated_at' | 'visibility' | story_story_max_fieldsKeySpecifier)[];
+export type story_story_max_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | 'visibility' | story_story_max_fieldsKeySpecifier)[];
 export type story_story_max_fieldsFieldPolicy = {
 	author_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	subtitle?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	visibility?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type story_story_min_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'title' | 'updated_at' | 'visibility' | story_story_min_fieldsKeySpecifier)[];
+export type story_story_min_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | 'visibility' | story_story_min_fieldsKeySpecifier)[];
 export type story_story_min_fieldsFieldPolicy = {
 	author_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	subtitle?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	visibility?: FieldPolicy<any> | FieldReadFunction<any>

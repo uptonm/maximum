@@ -1033,7 +1033,7 @@ input story_block_variance_order_by {
   seq: order_by
 }
 
-"The type of blocks that are supported by the client\n\n\ncolumns and relationships of \"story_enum.block_type\"\n"
+"""The type of blocks that are supported by the client"""
 type story_enum_block_type {
   description: String!
   type: String!
@@ -1175,7 +1175,7 @@ enum story_enum_block_type_update_column {
   type
 }
 
-"Enum table representing the visibility state of a given story\n\n\ncolumns and relationships of \"story_enum.visibility_state\"\n"
+"""Enum table representing the visibility state of a given story"""
 type story_enum_visibility_state {
   description: String!
   state: String!
@@ -1345,6 +1345,7 @@ type story_story {
   ): story_block_aggregate!
   created_at: timestamptz!
   id: uuid!
+  subtitle: String!
   title: String!
   updated_at: timestamptz!
   visibility: String!
@@ -1379,6 +1380,7 @@ input story_story_bool_exp {
   blocks: story_block_bool_exp
   created_at: timestamptz_comparison_exp
   id: uuid_comparison_exp
+  subtitle: String_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
   visibility: String_comparison_exp
@@ -1401,6 +1403,7 @@ input story_story_insert_input {
   blocks: story_block_arr_rel_insert_input
   created_at: timestamptz
   id: uuid
+  subtitle: String
   title: String
   updated_at: timestamptz
   visibility: String
@@ -1411,6 +1414,7 @@ type story_story_max_fields {
   author_id: uuid
   created_at: timestamptz
   id: uuid
+  subtitle: String
   title: String
   updated_at: timestamptz
   visibility: String
@@ -1421,6 +1425,7 @@ type story_story_min_fields {
   author_id: uuid
   created_at: timestamptz
   id: uuid
+  subtitle: String
   title: String
   updated_at: timestamptz
   visibility: String
@@ -1453,6 +1458,7 @@ input story_story_order_by {
   blocks_aggregate: story_block_aggregate_order_by
   created_at: order_by
   id: order_by
+  subtitle: order_by
   title: order_by
   updated_at: order_by
   visibility: order_by
@@ -1477,6 +1483,9 @@ enum story_story_select_column {
   id
 
   """column name"""
+  subtitle
+
+  """column name"""
   title
 
   """column name"""
@@ -1493,6 +1502,7 @@ input story_story_set_input {
   author_id: uuid
   created_at: timestamptz
   id: uuid
+  subtitle: String
   title: String
   updated_at: timestamptz
   visibility: String
@@ -1510,6 +1520,9 @@ enum story_story_update_column {
 
   """column name"""
   id
+
+  """column name"""
+  subtitle
 
   """column name"""
   title

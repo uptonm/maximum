@@ -25,7 +25,7 @@ export function StoryListItem({ story }: StoryListItemProps) {
 			<Link href={`/stories/${story.id}/edit`} passHref>
 				<a>
 					<h1 className="font-extrabold text-2xl">{story.title}</h1>
-					{story.blocks?.[0]?.content?.length > 0 && <p>{story.blocks?.[0]?.content}</p>}
+					<p className="text-gray-700">{story.subtitle}</p>
 				</a>
 			</Link>
 		</li>

@@ -838,13 +838,7 @@ export type Story_Block_Variance_Order_By = {
   seq?: InputMaybe<Order_By>;
 };
 
-/**
- * The type of blocks that are supported by the client
- *
- *
- * columns and relationships of "story_enum.block_type"
- *
- */
+/** The type of blocks that are supported by the client */
 export type Story_Enum_Block_Type = {
   __typename?: 'story_enum_block_type';
   description: Scalars['String'];
@@ -973,13 +967,7 @@ export enum Story_Enum_Block_Type_Update_Column {
   Type = 'type'
 }
 
-/**
- * Enum table representing the visibility state of a given story
- *
- *
- * columns and relationships of "story_enum.visibility_state"
- *
- */
+/** Enum table representing the visibility state of a given story */
 export type Story_Enum_Visibility_State = {
   __typename?: 'story_enum_visibility_state';
   description: Scalars['String'];
@@ -1104,6 +1092,7 @@ export type Story_Story = {
   blocks_aggregate: Story_Block_Aggregate;
   created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
+  subtitle: Scalars['String'];
   title: Scalars['String'];
   updated_at: Scalars['timestamptz'];
   visibility: Scalars['String'];
@@ -1161,6 +1150,7 @@ export type Story_Story_Bool_Exp = {
   blocks?: InputMaybe<Story_Block_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  subtitle?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   visibility?: InputMaybe<String_Comparison_Exp>;
@@ -1179,6 +1169,7 @@ export type Story_Story_Insert_Input = {
   blocks?: InputMaybe<Story_Block_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  subtitle?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
   visibility?: InputMaybe<Scalars['String']>;
@@ -1190,6 +1181,7 @@ export type Story_Story_Max_Fields = {
   author_id?: Maybe<Scalars['uuid']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  subtitle?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   visibility?: Maybe<Scalars['String']>;
@@ -1201,6 +1193,7 @@ export type Story_Story_Min_Fields = {
   author_id?: Maybe<Scalars['uuid']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  subtitle?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
   visibility?: Maybe<Scalars['String']>;
@@ -1229,6 +1222,7 @@ export type Story_Story_Order_By = {
   blocks_aggregate?: InputMaybe<Story_Block_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  subtitle?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   visibility?: InputMaybe<Order_By>;
@@ -1248,6 +1242,8 @@ export enum Story_Story_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  Subtitle = 'subtitle',
+  /** column name */
   Title = 'title',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -1260,6 +1256,7 @@ export type Story_Story_Set_Input = {
   author_id?: InputMaybe<Scalars['uuid']>;
   created_at?: InputMaybe<Scalars['timestamptz']>;
   id?: InputMaybe<Scalars['uuid']>;
+  subtitle?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
   visibility?: InputMaybe<Scalars['String']>;
@@ -1273,6 +1270,8 @@ export enum Story_Story_Update_Column {
   CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
+  /** column name */
+  Subtitle = 'subtitle',
   /** column name */
   Title = 'title',
   /** column name */

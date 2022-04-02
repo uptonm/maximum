@@ -23,7 +23,12 @@ const EDITOR_JS_TOOLS = {
 	// embed: Embed,
 	code: CodeTool,
 	header: Header,
-	paragraph: Paragraph,
+	paragraph: {
+		class: Paragraph,
+		config: {
+			placeholder: 'Tell your story',
+		},
+	},
 	// list: List,
 	// codeBox: CodeBox,
 	// linkTool: LinkTool,

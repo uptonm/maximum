@@ -1,6 +1,8 @@
 fragment StoryData on story_story {
 	id
 	title
+	subtitle
+	visibility
 	author {
 		id
 		first_name
