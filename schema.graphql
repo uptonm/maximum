@@ -1,0 +1,1941 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+
+  """measured in seconds"""
+  ttl: Int! = 60
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+scalar jsonb
+
+"""
+Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'.
+"""
+input jsonb_comparison_exp {
+  """is the column contained in the given json value"""
+  _contained_in: jsonb
+
+  """does the column contain the given json value at the top level"""
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+
+  """does the string exist as a top-level key in the column"""
+  _has_key: String
+
+  """do all of these strings exist as top-level keys in the column"""
+  _has_keys_all: [String!]
+
+  """do any of these strings exist as top-level keys in the column"""
+  _has_keys_any: [String!]
+  _in: [jsonb!]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "story.block"
+  """
+  delete_story_block(
+    """filter the rows which have to be deleted"""
+    where: story_block_bool_exp!
+  ): story_block_mutation_response
+
+  """
+  delete single row from the table: "story.block"
+  """
+  delete_story_block_by_pk(id: uuid!): story_block
+
+  """
+  delete data from the table: "story_enum.block_type"
+  """
+  delete_story_enum_block_type(
+    """filter the rows which have to be deleted"""
+    where: story_enum_block_type_bool_exp!
+  ): story_enum_block_type_mutation_response
+
+  """
+  delete single row from the table: "story_enum.block_type"
+  """
+  delete_story_enum_block_type_by_pk(type: String!): story_enum_block_type
+
+  """
+  delete data from the table: "story_enum.visibility_state"
+  """
+  delete_story_enum_visibility_state(
+    """filter the rows which have to be deleted"""
+    where: story_enum_visibility_state_bool_exp!
+  ): story_enum_visibility_state_mutation_response
+
+  """
+  delete single row from the table: "story_enum.visibility_state"
+  """
+  delete_story_enum_visibility_state_by_pk(state: String!): story_enum_visibility_state
+
+  """
+  delete data from the table: "story.story"
+  """
+  delete_story_story(
+    """filter the rows which have to be deleted"""
+    where: story_story_bool_exp!
+  ): story_story_mutation_response
+
+  """
+  delete single row from the table: "story.story"
+  """
+  delete_story_story_by_pk(id: uuid!): story_story
+
+  """
+  delete data from the table: "user.user"
+  """
+  delete_user_user(
+    """filter the rows which have to be deleted"""
+    where: user_user_bool_exp!
+  ): user_user_mutation_response
+
+  """
+  delete single row from the table: "user.user"
+  """
+  delete_user_user_by_pk(id: uuid!): user_user
+
+  """
+  insert data into the table: "story.block"
+  """
+  insert_story_block(
+    """the rows to be inserted"""
+    objects: [story_block_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: story_block_on_conflict
+  ): story_block_mutation_response
+
+  """
+  insert a single row into the table: "story.block"
+  """
+  insert_story_block_one(
+    """the row to be inserted"""
+    object: story_block_insert_input!
+
+    """upsert condition"""
+    on_conflict: story_block_on_conflict
+  ): story_block
+
+  """
+  insert data into the table: "story_enum.block_type"
+  """
+  insert_story_enum_block_type(
+    """the rows to be inserted"""
+    objects: [story_enum_block_type_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: story_enum_block_type_on_conflict
+  ): story_enum_block_type_mutation_response
+
+  """
+  insert a single row into the table: "story_enum.block_type"
+  """
+  insert_story_enum_block_type_one(
+    """the row to be inserted"""
+    object: story_enum_block_type_insert_input!
+
+    """upsert condition"""
+    on_conflict: story_enum_block_type_on_conflict
+  ): story_enum_block_type
+
+  """
+  insert data into the table: "story_enum.visibility_state"
+  """
+  insert_story_enum_visibility_state(
+    """the rows to be inserted"""
+    objects: [story_enum_visibility_state_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: story_enum_visibility_state_on_conflict
+  ): story_enum_visibility_state_mutation_response
+
+  """
+  insert a single row into the table: "story_enum.visibility_state"
+  """
+  insert_story_enum_visibility_state_one(
+    """the row to be inserted"""
+    object: story_enum_visibility_state_insert_input!
+
+    """upsert condition"""
+    on_conflict: story_enum_visibility_state_on_conflict
+  ): story_enum_visibility_state
+
+  """
+  insert data into the table: "story.story"
+  """
+  insert_story_story(
+    """the rows to be inserted"""
+    objects: [story_story_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: story_story_on_conflict
+  ): story_story_mutation_response
+
+  """
+  insert a single row into the table: "story.story"
+  """
+  insert_story_story_one(
+    """the row to be inserted"""
+    object: story_story_insert_input!
+
+    """upsert condition"""
+    on_conflict: story_story_on_conflict
+  ): story_story
+
+  """
+  insert data into the table: "user.user"
+  """
+  insert_user_user(
+    """the rows to be inserted"""
+    objects: [user_user_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: user_user_on_conflict
+  ): user_user_mutation_response
+
+  """
+  insert a single row into the table: "user.user"
+  """
+  insert_user_user_one(
+    """the row to be inserted"""
+    object: user_user_insert_input!
+
+    """upsert condition"""
+    on_conflict: user_user_on_conflict
+  ): user_user
+
+  """
+  update data of the table: "story.block"
+  """
+  update_story_block(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: story_block_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: story_block_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: story_block_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: story_block_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: story_block_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: story_block_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_block_set_input
+
+    """filter the rows which have to be updated"""
+    where: story_block_bool_exp!
+  ): story_block_mutation_response
+
+  """
+  update single row of the table: "story.block"
+  """
+  update_story_block_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: story_block_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: story_block_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: story_block_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: story_block_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: story_block_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: story_block_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_block_set_input
+    pk_columns: story_block_pk_columns_input!
+  ): story_block
+
+  """
+  update data of the table: "story_enum.block_type"
+  """
+  update_story_enum_block_type(
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_enum_block_type_set_input
+
+    """filter the rows which have to be updated"""
+    where: story_enum_block_type_bool_exp!
+  ): story_enum_block_type_mutation_response
+
+  """
+  update single row of the table: "story_enum.block_type"
+  """
+  update_story_enum_block_type_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_enum_block_type_set_input
+    pk_columns: story_enum_block_type_pk_columns_input!
+  ): story_enum_block_type
+
+  """
+  update data of the table: "story_enum.visibility_state"
+  """
+  update_story_enum_visibility_state(
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_enum_visibility_state_set_input
+
+    """filter the rows which have to be updated"""
+    where: story_enum_visibility_state_bool_exp!
+  ): story_enum_visibility_state_mutation_response
+
+  """
+  update single row of the table: "story_enum.visibility_state"
+  """
+  update_story_enum_visibility_state_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_enum_visibility_state_set_input
+    pk_columns: story_enum_visibility_state_pk_columns_input!
+  ): story_enum_visibility_state
+
+  """
+  update data of the table: "story.story"
+  """
+  update_story_story(
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_story_set_input
+
+    """filter the rows which have to be updated"""
+    where: story_story_bool_exp!
+  ): story_story_mutation_response
+
+  """
+  update single row of the table: "story.story"
+  """
+  update_story_story_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: story_story_set_input
+    pk_columns: story_story_pk_columns_input!
+  ): story_story
+
+  """
+  update data of the table: "user.user"
+  """
+  update_user_user(
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_user_set_input
+
+    """filter the rows which have to be updated"""
+    where: user_user_bool_exp!
+  ): user_user_mutation_response
+
+  """
+  update single row of the table: "user.user"
+  """
+  update_user_user_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_user_set_input
+    pk_columns: user_user_pk_columns_input!
+  ): user_user
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+type query_root {
+  """
+  fetch data from the table: "story.block"
+  """
+  story_block(
+    """distinct select on columns"""
+    distinct_on: [story_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_block_order_by!]
+
+    """filter the rows returned"""
+    where: story_block_bool_exp
+  ): [story_block!]!
+
+  """
+  fetch aggregated fields from the table: "story.block"
+  """
+  story_block_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_block_order_by!]
+
+    """filter the rows returned"""
+    where: story_block_bool_exp
+  ): story_block_aggregate!
+
+  """fetch data from the table: "story.block" using primary key columns"""
+  story_block_by_pk(id: uuid!): story_block
+
+  """
+  fetch data from the table: "story_enum.block_type"
+  """
+  story_enum_block_type(
+    """distinct select on columns"""
+    distinct_on: [story_enum_block_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_block_type_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_block_type_bool_exp
+  ): [story_enum_block_type!]!
+
+  """
+  fetch aggregated fields from the table: "story_enum.block_type"
+  """
+  story_enum_block_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_enum_block_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_block_type_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_block_type_bool_exp
+  ): story_enum_block_type_aggregate!
+
+  """
+  fetch data from the table: "story_enum.block_type" using primary key columns
+  """
+  story_enum_block_type_by_pk(type: String!): story_enum_block_type
+
+  """
+  fetch data from the table: "story_enum.visibility_state"
+  """
+  story_enum_visibility_state(
+    """distinct select on columns"""
+    distinct_on: [story_enum_visibility_state_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_visibility_state_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_visibility_state_bool_exp
+  ): [story_enum_visibility_state!]!
+
+  """
+  fetch aggregated fields from the table: "story_enum.visibility_state"
+  """
+  story_enum_visibility_state_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_enum_visibility_state_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_visibility_state_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_visibility_state_bool_exp
+  ): story_enum_visibility_state_aggregate!
+
+  """
+  fetch data from the table: "story_enum.visibility_state" using primary key columns
+  """
+  story_enum_visibility_state_by_pk(state: String!): story_enum_visibility_state
+
+  """
+  fetch data from the table: "story.story"
+  """
+  story_story(
+    """distinct select on columns"""
+    distinct_on: [story_story_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_story_order_by!]
+
+    """filter the rows returned"""
+    where: story_story_bool_exp
+  ): [story_story!]!
+
+  """
+  fetch aggregated fields from the table: "story.story"
+  """
+  story_story_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_story_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_story_order_by!]
+
+    """filter the rows returned"""
+    where: story_story_bool_exp
+  ): story_story_aggregate!
+
+  """fetch data from the table: "story.story" using primary key columns"""
+  story_story_by_pk(id: uuid!): story_story
+
+  """
+  fetch data from the table: "user.user"
+  """
+  user_user(
+    """distinct select on columns"""
+    distinct_on: [user_user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_user_order_by!]
+
+    """filter the rows returned"""
+    where: user_user_bool_exp
+  ): [user_user!]!
+
+  """
+  fetch aggregated fields from the table: "user.user"
+  """
+  user_user_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_user_order_by!]
+
+    """filter the rows returned"""
+    where: user_user_bool_exp
+  ): user_user_aggregate!
+
+  """fetch data from the table: "user.user" using primary key columns"""
+  user_user_by_pk(id: uuid!): user_user
+}
+
+"""
+columns and relationships of "story.block"
+"""
+type story_block {
+  data(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  id: uuid!
+  seq: Int!
+  story_id: uuid!
+  type: story_enum_block_type_enum!
+}
+
+"""
+aggregated selection of "story.block"
+"""
+type story_block_aggregate {
+  aggregate: story_block_aggregate_fields
+  nodes: [story_block!]!
+}
+
+"""
+aggregate fields of "story.block"
+"""
+type story_block_aggregate_fields {
+  avg: story_block_avg_fields
+  count(columns: [story_block_select_column!], distinct: Boolean): Int!
+  max: story_block_max_fields
+  min: story_block_min_fields
+  stddev: story_block_stddev_fields
+  stddev_pop: story_block_stddev_pop_fields
+  stddev_samp: story_block_stddev_samp_fields
+  sum: story_block_sum_fields
+  var_pop: story_block_var_pop_fields
+  var_samp: story_block_var_samp_fields
+  variance: story_block_variance_fields
+}
+
+"""
+order by aggregate values of table "story.block"
+"""
+input story_block_aggregate_order_by {
+  avg: story_block_avg_order_by
+  count: order_by
+  max: story_block_max_order_by
+  min: story_block_min_order_by
+  stddev: story_block_stddev_order_by
+  stddev_pop: story_block_stddev_pop_order_by
+  stddev_samp: story_block_stddev_samp_order_by
+  sum: story_block_sum_order_by
+  var_pop: story_block_var_pop_order_by
+  var_samp: story_block_var_samp_order_by
+  variance: story_block_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input story_block_append_input {
+  data: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "story.block"
+"""
+input story_block_arr_rel_insert_input {
+  data: [story_block_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: story_block_on_conflict
+}
+
+"""aggregate avg on columns"""
+type story_block_avg_fields {
+  seq: Float
+}
+
+"""
+order by avg() on columns of table "story.block"
+"""
+input story_block_avg_order_by {
+  seq: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "story.block". All fields are combined with a logical 'AND'.
+"""
+input story_block_bool_exp {
+  _and: [story_block_bool_exp!]
+  _not: story_block_bool_exp
+  _or: [story_block_bool_exp!]
+  data: jsonb_comparison_exp
+  id: uuid_comparison_exp
+  seq: Int_comparison_exp
+  story_id: uuid_comparison_exp
+  type: story_enum_block_type_enum_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "story.block"
+"""
+enum story_block_constraint {
+  """unique or primary key constraint"""
+  block_pkey
+
+  """unique or primary key constraint"""
+  block_story_id_seq_key
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input story_block_delete_at_path_input {
+  data: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input story_block_delete_elem_input {
+  data: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input story_block_delete_key_input {
+  data: String
+}
+
+"""
+input type for incrementing numeric columns in table "story.block"
+"""
+input story_block_inc_input {
+  seq: Int
+}
+
+"""
+input type for inserting data into table "story.block"
+"""
+input story_block_insert_input {
+  data: jsonb
+  id: uuid
+  seq: Int
+  story_id: uuid
+  type: story_enum_block_type_enum
+}
+
+"""aggregate max on columns"""
+type story_block_max_fields {
+  id: uuid
+  seq: Int
+  story_id: uuid
+}
+
+"""
+order by max() on columns of table "story.block"
+"""
+input story_block_max_order_by {
+  id: order_by
+  seq: order_by
+  story_id: order_by
+}
+
+"""aggregate min on columns"""
+type story_block_min_fields {
+  id: uuid
+  seq: Int
+  story_id: uuid
+}
+
+"""
+order by min() on columns of table "story.block"
+"""
+input story_block_min_order_by {
+  id: order_by
+  seq: order_by
+  story_id: order_by
+}
+
+"""
+response of any mutation on the table "story.block"
+"""
+type story_block_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [story_block!]!
+}
+
+"""
+on_conflict condition type for table "story.block"
+"""
+input story_block_on_conflict {
+  constraint: story_block_constraint!
+  update_columns: [story_block_update_column!]! = []
+  where: story_block_bool_exp
+}
+
+"""Ordering options when selecting data from "story.block"."""
+input story_block_order_by {
+  data: order_by
+  id: order_by
+  seq: order_by
+  story_id: order_by
+  type: order_by
+}
+
+"""primary key columns input for table: story_block"""
+input story_block_pk_columns_input {
+  id: uuid!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input story_block_prepend_input {
+  data: jsonb
+}
+
+"""
+select columns of table "story.block"
+"""
+enum story_block_select_column {
+  """column name"""
+  data
+
+  """column name"""
+  id
+
+  """column name"""
+  seq
+
+  """column name"""
+  story_id
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "story.block"
+"""
+input story_block_set_input {
+  data: jsonb
+  id: uuid
+  seq: Int
+  story_id: uuid
+  type: story_enum_block_type_enum
+}
+
+"""aggregate stddev on columns"""
+type story_block_stddev_fields {
+  seq: Float
+}
+
+"""
+order by stddev() on columns of table "story.block"
+"""
+input story_block_stddev_order_by {
+  seq: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type story_block_stddev_pop_fields {
+  seq: Float
+}
+
+"""
+order by stddev_pop() on columns of table "story.block"
+"""
+input story_block_stddev_pop_order_by {
+  seq: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type story_block_stddev_samp_fields {
+  seq: Float
+}
+
+"""
+order by stddev_samp() on columns of table "story.block"
+"""
+input story_block_stddev_samp_order_by {
+  seq: order_by
+}
+
+"""aggregate sum on columns"""
+type story_block_sum_fields {
+  seq: Int
+}
+
+"""
+order by sum() on columns of table "story.block"
+"""
+input story_block_sum_order_by {
+  seq: order_by
+}
+
+"""
+update columns of table "story.block"
+"""
+enum story_block_update_column {
+  """column name"""
+  data
+
+  """column name"""
+  id
+
+  """column name"""
+  seq
+
+  """column name"""
+  story_id
+
+  """column name"""
+  type
+}
+
+"""aggregate var_pop on columns"""
+type story_block_var_pop_fields {
+  seq: Float
+}
+
+"""
+order by var_pop() on columns of table "story.block"
+"""
+input story_block_var_pop_order_by {
+  seq: order_by
+}
+
+"""aggregate var_samp on columns"""
+type story_block_var_samp_fields {
+  seq: Float
+}
+
+"""
+order by var_samp() on columns of table "story.block"
+"""
+input story_block_var_samp_order_by {
+  seq: order_by
+}
+
+"""aggregate variance on columns"""
+type story_block_variance_fields {
+  seq: Float
+}
+
+"""
+order by variance() on columns of table "story.block"
+"""
+input story_block_variance_order_by {
+  seq: order_by
+}
+
+"The type of blocks that are supported by the client\n\n\ncolumns and relationships of \"story_enum.block_type\"\n"
+type story_enum_block_type {
+  description: String!
+  type: String!
+}
+
+"""
+aggregated selection of "story_enum.block_type"
+"""
+type story_enum_block_type_aggregate {
+  aggregate: story_enum_block_type_aggregate_fields
+  nodes: [story_enum_block_type!]!
+}
+
+"""
+aggregate fields of "story_enum.block_type"
+"""
+type story_enum_block_type_aggregate_fields {
+  count(columns: [story_enum_block_type_select_column!], distinct: Boolean): Int!
+  max: story_enum_block_type_max_fields
+  min: story_enum_block_type_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "story_enum.block_type". All fields are combined with a logical 'AND'.
+"""
+input story_enum_block_type_bool_exp {
+  _and: [story_enum_block_type_bool_exp!]
+  _not: story_enum_block_type_bool_exp
+  _or: [story_enum_block_type_bool_exp!]
+  description: String_comparison_exp
+  type: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "story_enum.block_type"
+"""
+enum story_enum_block_type_constraint {
+  """unique or primary key constraint"""
+  block_type_pkey
+}
+
+enum story_enum_block_type_enum {
+  """a basic heading containing a level and text"""
+  header
+
+  """a basic paragraph containing text"""
+  paragraph
+}
+
+"""
+Boolean expression to compare columns of type "story_enum_block_type_enum". All fields are combined with logical 'AND'.
+"""
+input story_enum_block_type_enum_comparison_exp {
+  _eq: story_enum_block_type_enum
+  _in: [story_enum_block_type_enum!]
+  _is_null: Boolean
+  _neq: story_enum_block_type_enum
+  _nin: [story_enum_block_type_enum!]
+}
+
+"""
+input type for inserting data into table "story_enum.block_type"
+"""
+input story_enum_block_type_insert_input {
+  description: String
+  type: String
+}
+
+"""aggregate max on columns"""
+type story_enum_block_type_max_fields {
+  description: String
+  type: String
+}
+
+"""aggregate min on columns"""
+type story_enum_block_type_min_fields {
+  description: String
+  type: String
+}
+
+"""
+response of any mutation on the table "story_enum.block_type"
+"""
+type story_enum_block_type_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [story_enum_block_type!]!
+}
+
+"""
+on_conflict condition type for table "story_enum.block_type"
+"""
+input story_enum_block_type_on_conflict {
+  constraint: story_enum_block_type_constraint!
+  update_columns: [story_enum_block_type_update_column!]! = []
+  where: story_enum_block_type_bool_exp
+}
+
+"""Ordering options when selecting data from "story_enum.block_type"."""
+input story_enum_block_type_order_by {
+  description: order_by
+  type: order_by
+}
+
+"""primary key columns input for table: story_enum_block_type"""
+input story_enum_block_type_pk_columns_input {
+  type: String!
+}
+
+"""
+select columns of table "story_enum.block_type"
+"""
+enum story_enum_block_type_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "story_enum.block_type"
+"""
+input story_enum_block_type_set_input {
+  description: String
+  type: String
+}
+
+"""
+update columns of table "story_enum.block_type"
+"""
+enum story_enum_block_type_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  type
+}
+
+"Enum table representing the visibility state of a given story\n\n\ncolumns and relationships of \"story_enum.visibility_state\"\n"
+type story_enum_visibility_state {
+  description: String!
+  state: String!
+}
+
+"""
+aggregated selection of "story_enum.visibility_state"
+"""
+type story_enum_visibility_state_aggregate {
+  aggregate: story_enum_visibility_state_aggregate_fields
+  nodes: [story_enum_visibility_state!]!
+}
+
+"""
+aggregate fields of "story_enum.visibility_state"
+"""
+type story_enum_visibility_state_aggregate_fields {
+  count(columns: [story_enum_visibility_state_select_column!], distinct: Boolean): Int!
+  max: story_enum_visibility_state_max_fields
+  min: story_enum_visibility_state_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "story_enum.visibility_state". All fields are combined with a logical 'AND'.
+"""
+input story_enum_visibility_state_bool_exp {
+  _and: [story_enum_visibility_state_bool_exp!]
+  _not: story_enum_visibility_state_bool_exp
+  _or: [story_enum_visibility_state_bool_exp!]
+  description: String_comparison_exp
+  state: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "story_enum.visibility_state"
+"""
+enum story_enum_visibility_state_constraint {
+  """unique or primary key constraint"""
+  visibility_state_pkey
+}
+
+"""
+input type for inserting data into table "story_enum.visibility_state"
+"""
+input story_enum_visibility_state_insert_input {
+  description: String
+  state: String
+}
+
+"""aggregate max on columns"""
+type story_enum_visibility_state_max_fields {
+  description: String
+  state: String
+}
+
+"""aggregate min on columns"""
+type story_enum_visibility_state_min_fields {
+  description: String
+  state: String
+}
+
+"""
+response of any mutation on the table "story_enum.visibility_state"
+"""
+type story_enum_visibility_state_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [story_enum_visibility_state!]!
+}
+
+"""
+on_conflict condition type for table "story_enum.visibility_state"
+"""
+input story_enum_visibility_state_on_conflict {
+  constraint: story_enum_visibility_state_constraint!
+  update_columns: [story_enum_visibility_state_update_column!]! = []
+  where: story_enum_visibility_state_bool_exp
+}
+
+"""
+Ordering options when selecting data from "story_enum.visibility_state".
+"""
+input story_enum_visibility_state_order_by {
+  description: order_by
+  state: order_by
+}
+
+"""primary key columns input for table: story_enum_visibility_state"""
+input story_enum_visibility_state_pk_columns_input {
+  state: String!
+}
+
+"""
+select columns of table "story_enum.visibility_state"
+"""
+enum story_enum_visibility_state_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  state
+}
+
+"""
+input type for updating data in table "story_enum.visibility_state"
+"""
+input story_enum_visibility_state_set_input {
+  description: String
+  state: String
+}
+
+"""
+update columns of table "story_enum.visibility_state"
+"""
+enum story_enum_visibility_state_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  state
+}
+
+"""
+columns and relationships of "story.story"
+"""
+type story_story {
+  """An object relationship"""
+  author: user_user!
+  author_id: uuid!
+
+  """An array relationship"""
+  blocks(
+    """distinct select on columns"""
+    distinct_on: [story_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_block_order_by!]
+
+    """filter the rows returned"""
+    where: story_block_bool_exp
+  ): [story_block!]!
+
+  """An aggregate relationship"""
+  blocks_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_block_order_by!]
+
+    """filter the rows returned"""
+    where: story_block_bool_exp
+  ): story_block_aggregate!
+  created_at: timestamptz!
+  id: uuid!
+  title: String!
+  updated_at: timestamptz!
+  visibility: String!
+}
+
+"""
+aggregated selection of "story.story"
+"""
+type story_story_aggregate {
+  aggregate: story_story_aggregate_fields
+  nodes: [story_story!]!
+}
+
+"""
+aggregate fields of "story.story"
+"""
+type story_story_aggregate_fields {
+  count(columns: [story_story_select_column!], distinct: Boolean): Int!
+  max: story_story_max_fields
+  min: story_story_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "story.story". All fields are combined with a logical 'AND'.
+"""
+input story_story_bool_exp {
+  _and: [story_story_bool_exp!]
+  _not: story_story_bool_exp
+  _or: [story_story_bool_exp!]
+  author: user_user_bool_exp
+  author_id: uuid_comparison_exp
+  blocks: story_block_bool_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  visibility: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "story.story"
+"""
+enum story_story_constraint {
+  """unique or primary key constraint"""
+  story_pkey
+}
+
+"""
+input type for inserting data into table "story.story"
+"""
+input story_story_insert_input {
+  author: user_user_obj_rel_insert_input
+  author_id: uuid
+  blocks: story_block_arr_rel_insert_input
+  created_at: timestamptz
+  id: uuid
+  title: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""aggregate max on columns"""
+type story_story_max_fields {
+  author_id: uuid
+  created_at: timestamptz
+  id: uuid
+  title: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""aggregate min on columns"""
+type story_story_min_fields {
+  author_id: uuid
+  created_at: timestamptz
+  id: uuid
+  title: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""
+response of any mutation on the table "story.story"
+"""
+type story_story_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [story_story!]!
+}
+
+"""
+on_conflict condition type for table "story.story"
+"""
+input story_story_on_conflict {
+  constraint: story_story_constraint!
+  update_columns: [story_story_update_column!]! = []
+  where: story_story_bool_exp
+}
+
+"""Ordering options when selecting data from "story.story"."""
+input story_story_order_by {
+  author: user_user_order_by
+  author_id: order_by
+  blocks_aggregate: story_block_aggregate_order_by
+  created_at: order_by
+  id: order_by
+  title: order_by
+  updated_at: order_by
+  visibility: order_by
+}
+
+"""primary key columns input for table: story_story"""
+input story_story_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "story.story"
+"""
+enum story_story_select_column {
+  """column name"""
+  author_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  visibility
+}
+
+"""
+input type for updating data in table "story.story"
+"""
+input story_story_set_input {
+  author_id: uuid
+  created_at: timestamptz
+  id: uuid
+  title: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""
+update columns of table "story.story"
+"""
+enum story_story_update_column {
+  """column name"""
+  author_id
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  visibility
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "story.block"
+  """
+  story_block(
+    """distinct select on columns"""
+    distinct_on: [story_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_block_order_by!]
+
+    """filter the rows returned"""
+    where: story_block_bool_exp
+  ): [story_block!]!
+
+  """
+  fetch aggregated fields from the table: "story.block"
+  """
+  story_block_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_block_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_block_order_by!]
+
+    """filter the rows returned"""
+    where: story_block_bool_exp
+  ): story_block_aggregate!
+
+  """fetch data from the table: "story.block" using primary key columns"""
+  story_block_by_pk(id: uuid!): story_block
+
+  """
+  fetch data from the table: "story_enum.block_type"
+  """
+  story_enum_block_type(
+    """distinct select on columns"""
+    distinct_on: [story_enum_block_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_block_type_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_block_type_bool_exp
+  ): [story_enum_block_type!]!
+
+  """
+  fetch aggregated fields from the table: "story_enum.block_type"
+  """
+  story_enum_block_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_enum_block_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_block_type_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_block_type_bool_exp
+  ): story_enum_block_type_aggregate!
+
+  """
+  fetch data from the table: "story_enum.block_type" using primary key columns
+  """
+  story_enum_block_type_by_pk(type: String!): story_enum_block_type
+
+  """
+  fetch data from the table: "story_enum.visibility_state"
+  """
+  story_enum_visibility_state(
+    """distinct select on columns"""
+    distinct_on: [story_enum_visibility_state_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_visibility_state_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_visibility_state_bool_exp
+  ): [story_enum_visibility_state!]!
+
+  """
+  fetch aggregated fields from the table: "story_enum.visibility_state"
+  """
+  story_enum_visibility_state_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_enum_visibility_state_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_enum_visibility_state_order_by!]
+
+    """filter the rows returned"""
+    where: story_enum_visibility_state_bool_exp
+  ): story_enum_visibility_state_aggregate!
+
+  """
+  fetch data from the table: "story_enum.visibility_state" using primary key columns
+  """
+  story_enum_visibility_state_by_pk(state: String!): story_enum_visibility_state
+
+  """
+  fetch data from the table: "story.story"
+  """
+  story_story(
+    """distinct select on columns"""
+    distinct_on: [story_story_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_story_order_by!]
+
+    """filter the rows returned"""
+    where: story_story_bool_exp
+  ): [story_story!]!
+
+  """
+  fetch aggregated fields from the table: "story.story"
+  """
+  story_story_aggregate(
+    """distinct select on columns"""
+    distinct_on: [story_story_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [story_story_order_by!]
+
+    """filter the rows returned"""
+    where: story_story_bool_exp
+  ): story_story_aggregate!
+
+  """fetch data from the table: "story.story" using primary key columns"""
+  story_story_by_pk(id: uuid!): story_story
+
+  """
+  fetch data from the table: "user.user"
+  """
+  user_user(
+    """distinct select on columns"""
+    distinct_on: [user_user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_user_order_by!]
+
+    """filter the rows returned"""
+    where: user_user_bool_exp
+  ): [user_user!]!
+
+  """
+  fetch aggregated fields from the table: "user.user"
+  """
+  user_user_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_user_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_user_order_by!]
+
+    """filter the rows returned"""
+    where: user_user_bool_exp
+  ): user_user_aggregate!
+
+  """fetch data from the table: "user.user" using primary key columns"""
+  user_user_by_pk(id: uuid!): user_user
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "user.user"
+"""
+type user_user {
+  email: String!
+  first_name: String!
+  id: uuid!
+  last_name: String!
+}
+
+"""
+aggregated selection of "user.user"
+"""
+type user_user_aggregate {
+  aggregate: user_user_aggregate_fields
+  nodes: [user_user!]!
+}
+
+"""
+aggregate fields of "user.user"
+"""
+type user_user_aggregate_fields {
+  count(columns: [user_user_select_column!], distinct: Boolean): Int!
+  max: user_user_max_fields
+  min: user_user_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "user.user". All fields are combined with a logical 'AND'.
+"""
+input user_user_bool_exp {
+  _and: [user_user_bool_exp!]
+  _not: user_user_bool_exp
+  _or: [user_user_bool_exp!]
+  email: String_comparison_exp
+  first_name: String_comparison_exp
+  id: uuid_comparison_exp
+  last_name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "user.user"
+"""
+enum user_user_constraint {
+  """unique or primary key constraint"""
+  user_email_key
+
+  """unique or primary key constraint"""
+  user_pkey
+}
+
+"""
+input type for inserting data into table "user.user"
+"""
+input user_user_insert_input {
+  email: String
+  first_name: String
+  id: uuid
+  last_name: String
+}
+
+"""aggregate max on columns"""
+type user_user_max_fields {
+  email: String
+  first_name: String
+  id: uuid
+  last_name: String
+}
+
+"""aggregate min on columns"""
+type user_user_min_fields {
+  email: String
+  first_name: String
+  id: uuid
+  last_name: String
+}
+
+"""
+response of any mutation on the table "user.user"
+"""
+type user_user_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [user_user!]!
+}
+
+"""
+input type for inserting object relation for remote table "user.user"
+"""
+input user_user_obj_rel_insert_input {
+  data: user_user_insert_input!
+
+  """upsert condition"""
+  on_conflict: user_user_on_conflict
+}
+
+"""
+on_conflict condition type for table "user.user"
+"""
+input user_user_on_conflict {
+  constraint: user_user_constraint!
+  update_columns: [user_user_update_column!]! = []
+  where: user_user_bool_exp
+}
+
+"""Ordering options when selecting data from "user.user"."""
+input user_user_order_by {
+  email: order_by
+  first_name: order_by
+  id: order_by
+  last_name: order_by
+}
+
+"""primary key columns input for table: user_user"""
+input user_user_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "user.user"
+"""
+enum user_user_select_column {
+  """column name"""
+  email
+
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  last_name
+}
+
+"""
+input type for updating data in table "user.user"
+"""
+input user_user_set_input {
+  email: String
+  first_name: String
+  id: uuid
+  last_name: String
+}
+
+"""
+update columns of table "user.user"
+"""
+enum user_user_update_column {
+  """column name"""
+  email
+
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  last_name
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}

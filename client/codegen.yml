@@ -1,0 +1,27 @@
+schema:
+  - ${HASURA_GRAPHQL_ENDPOINT}/v1/graphql:
+      headers:
+        X-HASURA-ACCESS-KEY: ${HASURA_GRAPHQL_ADMIN_SECRET}
+documents:
+  - ./**/*.graphql
+generates:
+  ./src/lib/apollo-helpers.ts:
+    plugins:
+      # https://www.graphql-code-generator.com/docs/plugins/typescript-apollo-client-helpers
+      - typescript-apollo-client-helpers
+  ./src/lib/gqlTypes.ts:
+    plugins:
+      - "typescript"
+  ./src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: ./lib/gqlTypes.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+  ../schema.graphql:
+    plugins:
+      # https://www.graphql-code-generator.com/docs/plugins/schema-ast
+      - schema-ast
+overwrite: true

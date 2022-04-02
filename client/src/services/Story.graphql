@@ -1,0 +1,69 @@
+fragment StoryData on story_story {
+	id
+	title
+	author {
+		id
+		first_name
+		last_name
+	}
+	created_at
+	updated_at
+}
+
+fragment StorySearchResult on story_story {
+	...StoryData
+	blocks(limit: 1) {
+		id
+		type
+		data
+		seq
+	}
+}
+
+query GetStoriesBySearch($search_string: String = "%") {
+	story_story(where: {title: {_ilike: $search_string}}) {
+		...StorySearchResult
+	}
+}
+
+fragment StoryResult on story_story {
+	...StoryData
+	blocks {
+		id
+		type
+		data
+		seq
+	}
+}
+
+query GetStoryById($storyId: uuid!) {
+	story_story_by_pk(id: $storyId) {
+		...StoryResult
+	}
+}
+
+mutation CreateStory($story: story_story_insert_input!) {
+	insert_story_story_one(object: $story) {
+		id
+	}
+}
+
+mutation UpdateStory($storyId: uuid!, $story: story_story_set_input!) {
+	update_story_story_by_pk(pk_columns: {id: $storyId}, _set: $story) {
+		id
+	}
+}
+
+mutation CreateBlocks($blocks: [story_block_insert_input!]!){
+	insert_story_block(objects: $blocks) {
+		returning {
+			id
+		}
+	}
+}
+
+mutation DeleteBlocks($blockIds: [uuid!]!) {
+	delete_story_block(where: {id: {_in: $blockIds}}) {
+		affected_rows
+	}
+}

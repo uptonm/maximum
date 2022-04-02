@@ -1,0 +1,41 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:storybook/recommended"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/indent": [
+      "error",
+      "tab"
+    ],
+    "react/jsx-indent": [
+      2,
+      "tab"
+    ],
+    "react/jsx-indent-props": [
+      2,
+      "tab"
+    ],
+    "no-tabs": "off",
+    "max-len": [
+      "error",
+      120
+    ],
+    "class-methods-use-this": "off"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": [
+    "gqlTypes.ts",
+    "babel.config.js",
+    "apollo-helpers.ts",
+    "*.generated.tsx",
+    "*.stories.tsx"
+  ]
+}
