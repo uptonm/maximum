@@ -3,25 +3,25 @@ import * as Types from '../lib/gqlTypes';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type StoryDataFragment = { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: string, created_at: any, updated_at: any, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } };
+export type StoryDataFragment = { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: Types.Story_Enum_Visibility_State_Enum, created_at: any, updated_at: any, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } };
 
-export type StorySearchResultFragment = { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: string, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } };
+export type StorySearchResultFragment = { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: Types.Story_Enum_Visibility_State_Enum, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } };
 
 export type GetStoriesBySearchQueryVariables = Types.Exact<{
   search_string?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
 
-export type GetStoriesBySearchQuery = { __typename?: 'query_root', story_story: Array<{ __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: string, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } }> };
+export type GetStoriesBySearchQuery = { __typename?: 'query_root', story_story: Array<{ __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: Types.Story_Enum_Visibility_State_Enum, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } }> };
 
-export type StoryResultFragment = { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: string, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } };
+export type StoryResultFragment = { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: Types.Story_Enum_Visibility_State_Enum, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } };
 
 export type GetStoryByIdQueryVariables = Types.Exact<{
   storyId: Types.Scalars['uuid'];
 }>;
 
 
-export type GetStoryByIdQuery = { __typename?: 'query_root', story_story_by_pk?: { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: string, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } } | null };
+export type GetStoryByIdQuery = { __typename?: 'query_root', story_story_by_pk?: { __typename?: 'story_story', id: any, title: string, subtitle: string, visibility: Types.Story_Enum_Visibility_State_Enum, created_at: any, updated_at: any, blocks: Array<{ __typename?: 'story_block', id: any, type: Types.Story_Enum_Block_Type_Enum, data: any, seq: number }>, author: { __typename?: 'user_user', id: any, first_name: string, last_name: string } } | null };
 
 export type CreateStoryMutationVariables = Types.Exact<{
   story: Types.Story_Story_Insert_Input;

@@ -883,6 +883,8 @@ export enum Story_Enum_Block_Type_Constraint {
 }
 
 export enum Story_Enum_Block_Type_Enum {
+  /** An arbitrary block of code */
+  Code = 'Code',
   /** a basic heading containing a level and text */
   Header = 'header',
   /** a basic paragraph containing text */
@@ -1011,6 +1013,22 @@ export enum Story_Enum_Visibility_State_Constraint {
   VisibilityStatePkey = 'visibility_state_pkey'
 }
 
+export enum Story_Enum_Visibility_State_Enum {
+  /** A draft story is only visible to the user that created it */
+  Draft = 'Draft',
+  /** A published story is visible to all users */
+  Published = 'Published'
+}
+
+/** Boolean expression to compare columns of type "story_enum_visibility_state_enum". All fields are combined with logical 'AND'. */
+export type Story_Enum_Visibility_State_Enum_Comparison_Exp = {
+  _eq?: InputMaybe<Story_Enum_Visibility_State_Enum>;
+  _in?: InputMaybe<Array<Story_Enum_Visibility_State_Enum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Story_Enum_Visibility_State_Enum>;
+  _nin?: InputMaybe<Array<Story_Enum_Visibility_State_Enum>>;
+};
+
 /** input type for inserting data into table "story_enum.visibility_state" */
 export type Story_Enum_Visibility_State_Insert_Input = {
   description?: InputMaybe<Scalars['String']>;
@@ -1095,7 +1113,7 @@ export type Story_Story = {
   subtitle: Scalars['String'];
   title: Scalars['String'];
   updated_at: Scalars['timestamptz'];
-  visibility: Scalars['String'];
+  visibility: Story_Enum_Visibility_State_Enum;
 };
 
 
@@ -1153,7 +1171,7 @@ export type Story_Story_Bool_Exp = {
   subtitle?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  visibility?: InputMaybe<String_Comparison_Exp>;
+  visibility?: InputMaybe<Story_Enum_Visibility_State_Enum_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "story.story" */
@@ -1172,7 +1190,7 @@ export type Story_Story_Insert_Input = {
   subtitle?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
-  visibility?: InputMaybe<Scalars['String']>;
+  visibility?: InputMaybe<Story_Enum_Visibility_State_Enum>;
 };
 
 /** aggregate max on columns */
@@ -1184,7 +1202,6 @@ export type Story_Story_Max_Fields = {
   subtitle?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
-  visibility?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
@@ -1196,7 +1213,6 @@ export type Story_Story_Min_Fields = {
   subtitle?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
-  visibility?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "story.story" */
@@ -1259,7 +1275,7 @@ export type Story_Story_Set_Input = {
   subtitle?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   updated_at?: InputMaybe<Scalars['timestamptz']>;
-  visibility?: InputMaybe<Scalars['String']>;
+  visibility?: InputMaybe<Story_Enum_Visibility_State_Enum>;
 };
 
 /** update columns of table "story.story" */

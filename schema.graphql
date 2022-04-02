@@ -1076,6 +1076,9 @@ enum story_enum_block_type_constraint {
 }
 
 enum story_enum_block_type_enum {
+  """An arbitrary block of code"""
+  Code
+
   """a basic heading containing a level and text"""
   header
 
@@ -1217,6 +1220,25 @@ enum story_enum_visibility_state_constraint {
   visibility_state_pkey
 }
 
+enum story_enum_visibility_state_enum {
+  """A draft story is only visible to the user that created it"""
+  Draft
+
+  """A published story is visible to all users"""
+  Published
+}
+
+"""
+Boolean expression to compare columns of type "story_enum_visibility_state_enum". All fields are combined with logical 'AND'.
+"""
+input story_enum_visibility_state_enum_comparison_exp {
+  _eq: story_enum_visibility_state_enum
+  _in: [story_enum_visibility_state_enum!]
+  _is_null: Boolean
+  _neq: story_enum_visibility_state_enum
+  _nin: [story_enum_visibility_state_enum!]
+}
+
 """
 input type for inserting data into table "story_enum.visibility_state"
 """
@@ -1348,7 +1370,7 @@ type story_story {
   subtitle: String!
   title: String!
   updated_at: timestamptz!
-  visibility: String!
+  visibility: story_enum_visibility_state_enum!
 }
 
 """
@@ -1383,7 +1405,7 @@ input story_story_bool_exp {
   subtitle: String_comparison_exp
   title: String_comparison_exp
   updated_at: timestamptz_comparison_exp
-  visibility: String_comparison_exp
+  visibility: story_enum_visibility_state_enum_comparison_exp
 }
 
 """
@@ -1406,7 +1428,7 @@ input story_story_insert_input {
   subtitle: String
   title: String
   updated_at: timestamptz
-  visibility: String
+  visibility: story_enum_visibility_state_enum
 }
 
 """aggregate max on columns"""
@@ -1417,7 +1439,6 @@ type story_story_max_fields {
   subtitle: String
   title: String
   updated_at: timestamptz
-  visibility: String
 }
 
 """aggregate min on columns"""
@@ -1428,7 +1449,6 @@ type story_story_min_fields {
   subtitle: String
   title: String
   updated_at: timestamptz
-  visibility: String
 }
 
 """
@@ -1505,7 +1525,7 @@ input story_story_set_input {
   subtitle: String
   title: String
   updated_at: timestamptz
-  visibility: String
+  visibility: story_enum_visibility_state_enum
 }
 
 """

@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic';
 import { isEqual } from 'lodash-es';
+import classNames from 'classnames';
 import { toast } from 'react-hot-toast';
 import { OutputData } from '@editorjs/editorjs';
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { OutputBlockData } from '@editorjs/editorjs/types/data-formats/output-data';
 
 import {
@@ -15,6 +16,9 @@ import { FullName } from '@lib/utils';
 import { Story_Enum_Block_Type_Enum } from '@lib/gqlTypes';
 import { useDelayedDebounce } from '@hooks/useDelayedDebounce';
 import Link from 'next/link';
+import { Menu, Transition } from '@headlessui/react';
+import { DotsHorizontalIcon } from '@heroicons/react/solid';
+import { BellIcon } from '@heroicons/react/outline';
 
 const EditorJs = dynamic(() => import('@components/EditorJs/EditorJs'), { ssr: false });
 
@@ -144,22 +148,171 @@ export function StoryEditor({ storyId }: StoryEditorProps) {
 	}
 
 	return (
-		<div className="flex flex-col pt-5 w-full max-w-prose">
-			<div className="flex items-center space-x-4">
-				<Link href="/" passHref>
-					<a className="font-extrabold tracking-tight text-3xl">smol</a>
-				</Link>
-				<span>
-					{queryResults.data.story_story_by_pk.visibility}
-					{' '}
-					in
-					{' '}
-					{FullName(queryResults.data.story_story_by_pk.author)}
-				</span>
-				<span>
-					{networkState}
-				</span>
+		<div className="flex flex-col items-center pt-5 w-full max-w-4xl">
+			<div className="flex justify-between items-center w-full">
+				<div className="flex items-center space-x-4">
+					<Link href="/" passHref>
+						<a className="font-extrabold tracking-tight text-3xl">smol</a>
+					</Link>
+					<span>
+						{queryResults.data.story_story_by_pk.visibility}
+						{' '}
+						in
+						{' '}
+						{FullName(queryResults.data.story_story_by_pk.author)}
+					</span>
+					<span>
+						{networkState}
+					</span>
+				</div>
+
+				<div className="flex items-center space-x-4">
+					<button className="bg-green-600 text-white px-2 py-1 rounded">Publish</button>
+					<Menu as="div" className="relative inline-block text-left">
+						<div>
+							<Menu.Button className="rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+								<span className="sr-only">Open options</span>
+								<DotsHorizontalIcon className="h-5 w-5" aria-hidden="true" />
+							</Menu.Button>
+						</div>
+
+						<Transition
+							as={Fragment}
+							enter="transition ease-out duration-100"
+							enterFrom="transform opacity-0 scale-95"
+							enterTo="transform opacity-100 scale-100"
+							leave="transition ease-in duration-75"
+							leaveFrom="transform opacity-100 scale-100"
+							leaveTo="transform opacity-0 scale-95"
+						>
+							<Menu.Items className="origin-top-right absolute right-0 mt-4 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-100 z-10">
+								<div className="py-1">
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												Share draft link
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												Share to Twitter
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												Change featured image
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												Change display title / subtitle
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												Change tags
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												See revision history
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												More settings
+											</span>
+										)}
+									</Menu.Item>
+								</div>
+								<div className="py-1">
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												Hints and keyboard shortcuts
+											</span>
+										)}
+									</Menu.Item>
+									<Menu.Item disabled>
+										{({ active }) => (
+											<span
+												className={classNames(
+													active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+													'block px-4 py-2 text-sm hover:bg-gray-200/50',
+												)}
+											>
+												More help
+											</span>
+										)}
+									</Menu.Item>
+								</div>
+							</Menu.Items>
+						</Transition>
+					</Menu>
+					<div className="rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+						<span className="sr-only">Open notifications</span>
+						<BellIcon className="h-5 w-5" aria-hidden="true" />
+					</div>
+					<img
+						src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+						className="inline-block h-10 w-10 rounded-full ring-2 ring-green-600 ring-offset-2"
+						alt="user profile"
+					/>
+				</div>
 			</div>
+
 			<div className="flex flex-col pt-8 w-full max-w-prose">
 
 				<label htmlFor="title">

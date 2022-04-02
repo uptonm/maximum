@@ -212,25 +212,23 @@ export type story_story_aggregate_fieldsFieldPolicy = {
 	max?: FieldPolicy<any> | FieldReadFunction<any>,
 	min?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type story_story_max_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | 'visibility' | story_story_max_fieldsKeySpecifier)[];
+export type story_story_max_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | story_story_max_fieldsKeySpecifier)[];
 export type story_story_max_fieldsFieldPolicy = {
 	author_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	subtitle?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	visibility?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type story_story_min_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | 'visibility' | story_story_min_fieldsKeySpecifier)[];
+export type story_story_min_fieldsKeySpecifier = ('author_id' | 'created_at' | 'id' | 'subtitle' | 'title' | 'updated_at' | story_story_min_fieldsKeySpecifier)[];
 export type story_story_min_fieldsFieldPolicy = {
 	author_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	created_at?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	subtitle?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
-	updated_at?: FieldPolicy<any> | FieldReadFunction<any>,
-	visibility?: FieldPolicy<any> | FieldReadFunction<any>
+	updated_at?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type story_story_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | story_story_mutation_responseKeySpecifier)[];
 export type story_story_mutation_responseFieldPolicy = {
