@@ -1,0 +1,4 @@
+table:
+  name: block_type
+  schema: story_enum
+is_enum: true

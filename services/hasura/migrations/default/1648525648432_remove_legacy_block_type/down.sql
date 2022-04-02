@@ -1,0 +1,3 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- DELETE FROM story_enum.block_type WHERE type IN ('Header', 'Paragraph');

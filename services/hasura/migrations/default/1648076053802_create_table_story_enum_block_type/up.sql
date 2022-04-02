@@ -1,0 +1,1 @@
+CREATE TABLE "story_enum"."block_type" ("type" text NOT NULL DEFAULT 'Paragraph', "description" integer NOT NULL, PRIMARY KEY ("type") );COMMENT ON TABLE "story_enum"."block_type" IS E'The type of blocks that are supported by the client';

@@ -1,0 +1,3 @@
+table:
+  name: visibility_state
+  schema: story_enum
