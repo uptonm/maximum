@@ -1,3 +1,4 @@
 table:
   name: visibility_state
   schema: story_enum
+is_enum: true
